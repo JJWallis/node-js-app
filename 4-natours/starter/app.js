@@ -1,13 +1,19 @@
+const fs = require('fs')
 const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', async (req, res) => {
-   res.status(200).json({ message: 'Hey there!' })
-})
+const tours = JSON.parse(
+   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
+)
 
-app.post('/', (req, res) => {
-   res.send('Post req from homepage!')
+app.get('/api/v1/tours', (req, res) => {
+   res.status(200).json({
+      status: 'success',
+      data: {
+         tours,
+      },
+   })
 })
 
 app.listen(port, () => {
