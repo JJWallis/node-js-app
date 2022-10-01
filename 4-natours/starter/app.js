@@ -72,6 +72,15 @@ app.patch('/api/v1/tours/:id', (req, res) => {
    }
 })
 
+app.delete('/api/v1/tours/:id', (req, res) => {
+   if (parseInt(req.params.id) < tours.length) {
+      res.status(204).json({
+         status: 'success',
+         data: null,
+      })
+   }
+})
+
 app.listen(port, () => {
    console.log(`App running at http://localhost:${port}`)
 })
