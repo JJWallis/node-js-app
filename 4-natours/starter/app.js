@@ -62,10 +62,14 @@ app.post('/api/v1/tours', (req, res) => {
 })
 
 app.patch('/api/v1/tours/:id', (req, res) => {
-   console.log(req.params)
-   const dataToUpDate = req.body
-   const targetId = parseInt(req.params.id)
-   const tour = tours.find(({ id }) => id === targetId)
+   if (parseInt(req.params.id) < tours.length) {
+      res.status(200).json({
+         status: 'success',
+         data: {
+            tour: 'Updated tour',
+         },
+      })
+   }
 })
 
 app.listen(port, () => {
