@@ -61,6 +61,13 @@ app.post('/api/v1/tours', (req, res) => {
    )
 })
 
+app.patch('/api/v1/tours/:id', (req, res) => {
+   console.log(req.params)
+   const dataToUpDate = req.body
+   const targetId = parseInt(req.params.id)
+   const tour = tours.find(({ id }) => id === targetId)
+})
+
 app.listen(port, () => {
    console.log(`App running at http://localhost:${port}`)
 })
