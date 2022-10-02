@@ -7,14 +7,31 @@ const tours = JSON.parse(
    fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
 )
 
-const getAllTours = (_, res) =>
+app.use(express.json())
+
+app.use((req, res, next) => {
+   console.log('Hello from the middleware!')
+   next()
+   // CODE ORDER:
+   // if placed before controller -> be used for that route
+   // if placed after -> not because controller ends req/res cycle (send back res)
+})
+
+app.use((req, res, next) => {
+   req.requestTime = new Date().toISOString() // adds time of req
+   next()
+})
+
+const getAllTours = (req, res) => {
    res.status(200).json({
       status: 'success',
+      requestedAt: req.requestTime,
       results: tours.length, // only when sending arr -> easier for client
       data: {
          tours,
       },
    })
+}
 
 const getTour = (req, res) => {
    console.log(req.params)
@@ -77,8 +94,6 @@ const deleteTour = (req, res) => {
       })
    }
 }
-
-app.use(express.json())
 
 // app.get('/api/v1/tours', getAllTours)
 // app.get('/api/v1/tours/:id', getTour)
