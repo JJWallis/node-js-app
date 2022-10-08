@@ -69,7 +69,7 @@ const createTour = (req, res) => {
    fs.writeFile(
       `${__dirname}/dev-data/data/tours-simple.json`,
       JSON.stringify(tours), // convert write data to file!
-      (err) => {
+      () => {
          // successful resource creation code
          res.status(201).json({
             status: 'success',
