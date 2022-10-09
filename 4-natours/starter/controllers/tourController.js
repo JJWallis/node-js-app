@@ -15,7 +15,9 @@ const checkId = (_, res, next, val) => {
 }
 
 const checkBody = (req, res, next) => {
-   if (!['name', 'price'].includes(Object.keys(req.body))) {
+   const { name, price } = req.body || {}
+
+   if (![name, price].every((key) => key)) {
       return res.status(400).json({
          status: 'fail',
          message: 'Missing name or price',
