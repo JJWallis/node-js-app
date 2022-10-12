@@ -1,5 +1,5 @@
 {
-   "extends": ["plugin:node/recommended"],
+   "extends": ["plugin:node/recommended", "prettier"],
    "rules": {
       "spaced-comment": "off",
       "no-console": "warn",
@@ -13,7 +13,18 @@
       "prefer-destructuring": ["error", { "object": true, "array": false }],
       "no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next|val" }]
    },
+   "plugins": ["prettier"],
    "parserOptions": {
-      "ecmaVersion": "latest"
+      "ecmaVersion": "latest",
+      "prettier/prettier": [
+         "error",
+         {
+            "bracketSpacing": true,
+            "printWidth": 120,
+            "singleQuote": true,
+            "tabWidth": 2,
+            "useTabs": false
+         }
+      ]
    }
 }
